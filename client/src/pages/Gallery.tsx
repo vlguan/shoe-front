@@ -1,20 +1,36 @@
-// Product.tsx
-import React from 'react';
+// PhotoGrid.js
+import React, {useState} from 'react';
+import './PhotoGrid.css'; // Import your styles
+import Filter from '../components/filter/filter.tsx';
+const PhotoGrid = ({ data }) => {
+    const [selectedCategory, setSelectedCategory] = useState('all');
 
-interface ProductProps {
-  image: string;
-  title: string;
-  price: number;
-}
+  // Extract unique categories from data
+  const categories = Array.from(new Set(data.map((item) => item.category)));
 
-const Product: React.FC<ProductProps> = ({ image, title, price }) => {
+    const filteredData =
+    selectedCategory === 'all'
+      ? data
+      : data.filter((item) => item.category === selectedCategory);
+
   return (
-    <div className="product">
-      <img src={image} alt={title} />
-      <h3>{title}</h3>
-      <p>${price.toFixed(2)}</p>
+    <div>
+        <Filter
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
+        />
+    <div className="photo-grid">
+      {data.map((item, index) => (
+        <div key={index} className="grid-item">
+          <img src={item.photo} alt={item.title} />
+          <h3>{item.title}</h3>
+          <p>${item.price}</p>
+        </div>
+      ))}
+    </div>
     </div>
   );
-};
+}
 
-export default Product;
+export default PhotoGrid;

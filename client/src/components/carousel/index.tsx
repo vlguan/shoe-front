@@ -7,7 +7,7 @@ interface CarouselcompProps {
 const Carouselcomp: React.FC<CarouselcompProps> = ({ images }) => {
     return (
       <div className="box">
-        <Carousel useKeyboardArrows={true} interval={300000}>
+        <Carousel useKeyboardArrows={true} interval={3000}>
           {images.map((image, index) => (
             <div className="slide" key={index}>
               <img alt={`slide ${index + 1}`} src={image}/>
@@ -18,3 +18,4 @@ const Carouselcomp: React.FC<CarouselcompProps> = ({ images }) => {
     );
   }
   export default Carouselcomp;
+  

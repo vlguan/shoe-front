@@ -1,0 +1,28 @@
+footer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding-top: 60px;
+    padding-bottom: 50px;
+    background-color: #000000;
+    color: #fff;
+    position: relative;
+    left:0;
+    bottom:0;
+    right:0;
+  }
+  
+  .footer-section {
+    margin: auto;
+    text-align: left;
+  }
+  
+  .footer-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .footer-section p {
+    margin: 0;
+  }
+  

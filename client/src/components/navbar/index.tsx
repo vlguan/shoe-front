@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import Dropdown from "../dropdown/dropdown.tsx";
-
+import logoImage from "../../assets/logo.png";
 import './nav.css';
 
 const Navbar: React.FC = () => {
@@ -35,7 +35,8 @@ const Navbar: React.FC = () => {
     <>
       <nav className='navbar'>
         <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-          Your Logo
+            <img src={logoImage} alt="Logo" className="logo-image"/>
+          Little Feet
           <i className='fab fa-firstdraft' />
         </Link>
         <div className='menu-icon' onClick={handleClick}>

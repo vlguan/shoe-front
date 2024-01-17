@@ -1,11 +1,14 @@
 import React from "react";
 import Carouselcomp from '../components/carousel/index.tsx';
 import ProductSlider from '../components/product_slider/ProductSlider.tsx';
+import photo1 from '../assets/photo1.jpg'
+import photo2 from '../assets/photo2.jpg'
+import photo3 from '../assets/photo3.jpg'
 const LandingPage: React.FC = () => {
     const images = [
-        "https://res.cloudinary.com/ifeomaimoh/image/upload/v1652345767/demo_image2.jpg",
-      "https://res.cloudinary.com/ifeomaimoh/image/upload/v1652366604/demo_image5.jpg",
-      "https://res.cloudinary.com/ifeomaimoh/image/upload/v1652345874/demo_image1.jpg",
+        photo1,
+      photo2,
+      photo3
       ];
       const products = [
         { name: 'Product 1', price: '20.99', image: 'product1.jpg' },
@@ -17,6 +20,7 @@ const LandingPage: React.FC = () => {
         <div className="App">
             <Carouselcomp images={images}/>
             <ProductSlider products={products}/>
+            
         </div>
     
       )
