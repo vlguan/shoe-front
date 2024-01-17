@@ -7,6 +7,7 @@ import Gallery from './pages/Gallery.tsx'
 import LandingPage from './pages/Landing.tsx'
 import Footer from './components/footer/footer.tsx';
 import { BrowserRouter, Route,Routes } from 'react-router-dom';
+import ItemDetails from './components/itemDetail/itemDetail.tsx';
 const App: React.FC = () => {
   const photoData = [
     { photo: 'path/to/photo1.jpg', title: 'Photo 1', price: 20 },
@@ -25,7 +26,7 @@ const App: React.FC = () => {
     { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
     { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
     { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-    
+          
 
     // Add more photo data as needed
   ];
@@ -37,7 +38,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path='/' element={<LandingPage/>}/>
           <Route path='/gallery' element={<Gallery data={photoData}/>}/>
-          {/* <Route path='/' exact component={Home} /> */}
+          <Route path='/item/' element={<ItemDetails/>} />
           {/* <Route path='/services' component={Services} /> */}
           {/* <Route path='/products' component={Products} /> */}
           {/* <Route path='/contact-us' component={ContactUs} /> */}

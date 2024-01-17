@@ -1,7 +1,9 @@
 // PhotoGrid.js
 import React, {useState} from 'react';
+import { Link } from 'react-router-dom'
 import './PhotoGrid.css'; // Import your styles
 import Filter from '../components/filter/filter.tsx';
+import ItemDetails from '../components/itemDetail/itemDetail.tsx';
 const PhotoGrid = ({ data }) => {
     const [selectedCategory, setSelectedCategory] = useState('all');
 
@@ -21,13 +23,15 @@ const PhotoGrid = ({ data }) => {
         onSelectCategory={setSelectedCategory}
         />
     <div className="photo-grid">
-      {data.map((item, index) => (
-        <div key={index} className="grid-item">
-          <img src={item.photo} alt={item.title} />
-          <h3>{item.title}</h3>
-          <p>${item.price}</p>
-        </div>
-      ))}
+        {data.map((item, index) => (
+            <Link to={`/item/${index}`} key={index} className="grid-item-link">
+          <div key={index} className="grid-item">
+            <img src={item.photo} alt={item.title} />
+            <h3>{item.title}</h3>
+            <p>${item.price}</p>
+          </div>
+          </Link>
+        ))}
     </div>
     </div>
   );
