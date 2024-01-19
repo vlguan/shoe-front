@@ -11,5 +11,5 @@ class Shoe(models.Model):
     size=models.CharField(max_length=80, null=False)
     status=models.CharField(max_length=80, null=False)
 class Images(models.Model):
-    file_path = models.CharField(max_length=50)
+    file_path = models.CharField(max_length=160)
     image = models.ImageField(upload_to='product/')

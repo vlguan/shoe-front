@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'django_server.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'shoes',
+        'USER': 'admin',
+        'PASSWORD': 'password',
+        'HOST': 'little-feet-1.c76ucow82zf3.us-west-1.rds.amazonaws.com',
+        'PORT': '3310',
     }
 }
 
@@ -134,7 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # secret_access_key: 1EKnm0ZBztxTYv45OT1XHE3+sjeuIjaSDqfuIXkd
 
 AWS_ACCESS_KEY_ID = 'AKIA5FTZABC73ODAZDNZ'
-AWS_SECRET_ACCESS_KEY = '1EKnm0ZBztxTYv45OT1XHE3'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'little-feet'
 AWS_S3_SIGNATURE_NAME = 's3v4',
 AWS_S3_REGION_NAME = 'us-west-1'

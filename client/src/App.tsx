@@ -2,7 +2,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from'./components/navbar/index.tsx';
-
+import Blog from './pages/Blog.tsx'
 import Gallery from './pages/Gallery.tsx'
 import LandingPage from './pages/Landing.tsx'
 import Footer from './components/footer/footer.tsx';
@@ -39,7 +39,7 @@ const App: React.FC = () => {
           <Route path='/' element={<LandingPage/>}/>
           <Route path='/gallery' element={<Gallery data={photoData}/>}/>
           <Route path='/item/' element={<ItemDetails/>} />
-          {/* <Route path='/services' component={Services} /> */}
+          <Route path='/blog' element={<Blog/>} />
           {/* <Route path='/products' component={Products} /> */}
           {/* <Route path='/contact-us' component={ContactUs} /> */}
           {/* <Route path='/sign-up' component={SignUp} /> */}
