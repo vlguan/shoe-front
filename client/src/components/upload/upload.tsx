@@ -1,39 +1,44 @@
 import React, { useState } from 'react';
 import './upload.css'
-const FileUpload = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
+function Upload(){
+  const [selectedFiles, setSelectFiles] = useState([]);
 
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+    const chosenFiles = Array.prototype.slice.call(event.target.files)
+    setSelectFiles(chosenFiles);
   };
 
   const handleUpload = () => {
-    if (selectedFile) {
+    selectedFiles.forEach((file)=> {
       const formData = new FormData();
-      formData.append('file', selectedFile);
-
-      fetch('/upload', {
+      formData.append('image',file)
+      formData.append('file_path', file['name'])
+      fetch('http://localhost:8000/api/upload/', {
         method: 'POST',
         body: formData,
       })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Upload successful:', data);
-          // Handle success (e.g., update UI)
+        .then(response => {
+          console.log(response)
+          if(response.status === 200){
+            console.log('Success')
+          }else{
+            console.log('Error')
+          }
         })
-        .catch(error => {
-          console.error('Error uploading file:', error);
-          // Handle error (e.g., show error message)
-        });
-    }
+    })
   };
 
-  return (
-    <div>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload}>Upload</button>
-    </div>
-  );
+    return(
+      <div>
+        <form>
+            <div><h2>Upload Images</h2></div>
+            <h3>Images</h3>
+            <input type='file' multiple onChange={handleFileChange}/>
+            <button type='button' onClick={handleUpload}>Upload</button>
+        </form>
+      </div>
+        
+      );
 };
 
-export default FileUpload;
+export default Upload;

@@ -1,7 +1,6 @@
 import React from "react";
 import Carouselcomp from '../components/carousel/index.tsx';
 import ProductSlider from '../components/product_slider/ProductSlider.tsx';
-import FileUpload from "../components/upload/upload.tsx";
 import photo1 from '../assets/photo1.jpg'
 import photo2 from '../assets/photo2.jpg'
 import photo3 from '../assets/photo3.jpg'
@@ -21,7 +20,6 @@ const LandingPage: React.FC = () => {
         <div className="App">
             <Carouselcomp images={images}/>
             <ProductSlider products={products}/>
-            <FileUpload/>
         </div>
     
       )

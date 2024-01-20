@@ -1,89 +1,77 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
-import Dropdown from "../dropdown/dropdown.tsx";
+import { NavLink } from 'react-router-dom';
 import logoImage from "../../assets/logo.png";
+import {ReactComponent as Hamburger} from '../../assets/hamburger.svg'
 import './nav.css';
 
 const Navbar: React.FC = () => {
-  const [click, setClick] = useState(false);
-  const [dropdown, setDropdown] = useState(false);
-
-  const handleClick = () => {
-    setClick(!click);
-    // Show dropdown only when the window is in phone format
-    if (window.innerWidth < 960) {
-      setDropdown(!dropdown);
-    }
-  };
-
-  const closeMobileMenu = () => {
-    setClick(false);
-    setDropdown(false);
-  };
-
-  useEffect(() => {
-    // Attach the event listener for window resize
-    window.addEventListener('resize', closeMobileMenu);
-
-    // Cleanup the event listener on component unmount
-    return () => {
-      window.removeEventListener('resize', closeMobileMenu);
-    };
-  }, []);
+  const [showNav, setShowNav] = useState(false)
+  const toggleNavItems = () => {
+    setShowNav(!showNav)
+  }
 
   return (
-    <>
       <nav className='navbar'>
-        <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-            <img src={logoImage} alt="Logo" className="logo-image"/>
-          Little Feet
-          <i className='fab fa-firstdraft' />
-        </Link>
-        <div className='menu-icon' onClick={handleClick}>
-          <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
+        <div className="logo">
+            <img src={logoImage} className='logo-img' alt='Logo'/>
+            <NavLink to='/' className='navbar-logo'>
+                Little Feet
+              </NavLink>
+          </div>
+        <div className='container'>
+          <div className='menu-icon' onClick={toggleNavItems}>
+              <Hamburger/>
+            </div>
+          <div className={`nav-elements ${showNav && 'active'}`}>
+            <ul>
+              <li>
+                <NavLink
+                  to='/gallery'
+                  
+                  >
+                  Gallery
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to='/howto'
+                  
+                >
+                  How To
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to='/blog' >
+                  Blog
+                </NavLink>
+              </li>
+              <li>
+              <NavLink
+                  to='/instagram'
+                  
+                >
+                  Instagram
+                </NavLink>
+              </li>
+              <li>
+              <NavLink
+                  to='/admin'
+                  
+                >
+                  Admin
+                </NavLink>
+              </li>
+              <li>
+              <NavLink
+                  to='/contact'
+                  >
+                  Contact
+                </NavLink>
+              </li>
+            </ul>
+          </div>
         </div>
-        <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-          <li className='nav-item'>
-            <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-              Home
-            </Link>
-          </li>
-          <li className='nav-item'>
-            <Link
-              to='/gallery'
-              className='nav-links'
-              onClick={closeMobileMenu}
-            >
-              Gallery <i className='fas fa-caret-down' />
-            </Link>
-            {dropdown && <Dropdown />}
-          </li>
-          <li className='nav-item'>
-            <Link
-              to='/howto'
-              className='nav-links'
-              onClick={closeMobileMenu}
-            >
-              How To Purchase
-            </Link>
-          </li>
-          <li className='nav-item'>
-            <Link to='/blog' className='nav-links' onClick={closeMobileMenu}>
-              Blog
-            </Link>
-          </li>
-          <li className='nav-item'>
-            <Link
-              to='/instagram'
-              className='nav-links-mobile'
-              onClick={closeMobileMenu}
-            >
-              Instagram
-            </Link>
-          </li>
-        </ul>
       </nav>
-    </>
   );
 };
 

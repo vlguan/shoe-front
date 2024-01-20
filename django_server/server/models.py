@@ -4,8 +4,8 @@ from django.db import models
 class Shoe(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=80, null=False)
-    image_files = models.JSONField(models.CharField(max_length=80), null=False)
-    price=models.IntegerField(null=False)
+    image_files = models.JSONField(models.CharField(max_length=600), null=False)
+    price=models.CharField(max_length=80,null=False)
     link=models.CharField(max_length=80, null=False)
     description=models.CharField(max_length=160, null=True)
     size=models.CharField(max_length=80, null=False)
