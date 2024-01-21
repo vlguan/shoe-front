@@ -10,27 +10,7 @@ import Footer from './components/footer/footer.tsx';
 import { BrowserRouter, Route,Routes } from 'react-router-dom';
 import ItemDetails from './components/itemDetail/itemDetail.tsx';
 const App: React.FC = () => {
-  const photoData = [
-    { photo: 'path/to/photo1.jpg', title: 'Photo 1', price: 20 },
-    { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-    { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-    { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-    { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-    { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-    { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-    { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-    { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-    { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-    { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-    { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-    { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-    { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-    { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-    { photo: 'path/to/photo2.jpg', title: 'Photo 2', price: 25 },
-          
-
-    // Add more photo data as needed
-  ];
+  const products=[]
   return (
     <div className="App">
       
@@ -38,8 +18,8 @@ const App: React.FC = () => {
         <Navbar/>
         <Routes>
           <Route path='/' element={<LandingPage/>}/>
-          <Route path='/gallery' element={<Gallery data={photoData}/>}/>
-          <Route path='/item/' element={<ItemDetails/>} />
+          <Route path='/gallery' element={<Gallery products={products}/>}/>
+          <Route path='/item/:index' element={<ItemDetails/>} />
           <Route path='/blog' element={<Blog/>} />
           <Route path='/admin' element={<Admin/>} />
           {/* <Route path='/contact-us' component={ContactUs} /> */}

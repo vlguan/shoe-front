@@ -76,61 +76,76 @@ const AdminDashboard = () => {
     <div className="admin">
       <h1>Admin Dashboard</h1>
       <form onSubmit={handleSubmit}>
-        <label className="itemName">Item Name:</label>
-        <input
-          type="text"
-          id="itemName"
-          name="name"
-          value={itemData.name}
-          onChange={handleChange}
-          required
-        />
-        <label className="itemPrice">Item Price:</label>
-        <input
-          type="text"
-          id="itemPrice"
-          name="price"
-          value={itemData.price}
-          onChange={handleChange}
-          required
-        />
-        <label className="itemLink">IG Link:</label>
-        <input
-          type="text"
-          id="itemLink"
-          name="link"
-          value={itemData.link}
-          onChange={handleChange}
-          required
-        />
-        <label className="itemDescription">Description:</label>
-        <input
-          type="text"
-          id="itemDescription"
-          name="description"
-          value={itemData.description}
-          onChange={handleChange}
-          required
-        />
-        <label className="itemSize">Size:</label>
-        <input
-          type="text"
-          id="itemSize"
-          name="size"
-          value={itemData.size}
-          onChange={handleChange}
-          required
-        />
-        <label className="itemImages">Item Images:</label>
-        <input
-          type="file"
-          id="itemImages"
-          name="images"
-          multiple
-          onChange={handleFileChange}
-        />
-        <button type="submit">Submit</button>
+        <div className='input-group-container'>
+          <div className='input-group'>
+            <label className="itemName">Item Name:</label>
+              <input
+                type="text"
+                id="itemName"
+                name="name"
+                value={itemData.name}
+                onChange={handleChange}
+                required
+              />
+              </div>
+              <div className='input-group'>
+              <label className="itemPrice">Item Price:</label>
+              <input
+                type="text"
+                id="itemPrice"
+                name="price"
+                value={itemData.price}
+                onChange={handleChange}
+                required
+              />
+              </div>
+              <div className='input-group'>
+              <label className="itemLink">IG Link:</label>
+              <input
+                type="text"
+                id="itemLink"
+                name="link"
+                value={itemData.link}
+                onChange={handleChange}
+                required
+              />
+              </div>
+              <div className='input-group'>
+              <label className="itemSize">Size:</label>
+              <input
+                type="text"
+                id="itemSize"
+                name="size"
+                value={itemData.size}
+                onChange={handleChange}
+                required
+              />
+              </div>
+            </div>
+        <div className='image-upload-container'>
+          <label className="itemImages">Item Images:</label>
+          <input
+            type="file"
+            id="itemImages"
+            name="images"
+            multiple
+            onChange={handleFileChange}
+          />
+        </div>
+        <div className='description-container'>
+          <label className="itemDescription">Description:</label>
+          <textarea
+            id="itemDescription"
+            name="description"
+            value={itemData.description}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        
+        
       </form>
+      <button type="submit">Submit</button>
     </div>
   );
 };
