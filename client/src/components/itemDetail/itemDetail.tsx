@@ -14,7 +14,7 @@ const ItemDetails: React.FC<ProductSliderProps> = () =>{
   const { index } = useParams()
   useEffect(()=>{
     const fetchData = async() => {
-      const response = await fetch(`http://localhost:8000/api/get-one-item/?item=${index}`, {
+      const response = await fetch(`http://localhost:8000/api/item/?item=${index}`, {
         method:'GET'
       });
       const data = await response.json();
@@ -38,10 +38,13 @@ const ItemDetails: React.FC<ProductSliderProps> = () =>{
       <div className='right-column'>
         <div className='description-container'>
           <div className='price-size'>
-            <p>Price: ${prods.price}</p>
-            <p>Size: {prods.size}</p>
+            <p className="price">Price: ${prods.price}</p>
+            <p>Size: {prods.size.map((sizeObj,index) => <span key={index}>{sizeObj.size} </span>)}</p>
           </div>
           <p>Description: {prods.description}</p>
+          <div>
+            <p>IG Link: {prods.link}</p>
+          </div>
           
           {/* Add more details or styling as needed */}
         </div>

@@ -7,7 +7,13 @@ class ImageForm(forms.ModelForm):
         model = Images
         fields = '__all__'
 
-class ShoeForm(forms.ModelForm):
+class ItemForm(forms.ModelForm):
+    
     class Meta:
-        model = Shoe
+        model = ItemType
+        fields = '__all__'
+class BlogForm(forms.ModelForm):
+
+    class Meta:
+        model = Blog
         fields = '__all__'

@@ -1,0 +1,60 @@
+/* BlogUpload.css */
+
+.blog-upload-container {
+    max-width: 600px;
+    margin: 0px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f4f4f4;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .upload-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .input-label {
+    margin-bottom: 5px;
+  }
+  
+  .input-field {
+    /* width: 100%; */
+    border-radius: 3px;
+    margin-top:5px;
+  }
+  
+  .input-field-c {
+    width: 100%;
+    border-radius: 3px;
+    margin-top:5px;
+    height: 75%;
+  }
+
+  .upload-button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .upload-button:hover {
+    background-color: #45a049;
+  }
+  
+  .error-message {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: red;
+  }
+  
+  .success-message {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: green;
+  }
+  

@@ -6,4 +6,5 @@ export interface Product{
     image_files: string;
     size: string;
     description: string;
+    link:string;
 }

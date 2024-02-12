@@ -1,0 +1,46 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+.anav-container{
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.adminnavbar{
+    z-index: 999;
+    background-color: #f4f4f4;
+    position: relative;
+}
+.anav-elements{
+  justify-content: center;
+}
+.anav-elements ul {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    list-style-type: none;
+  }
+  
+  .anav-elements ul a {
+    font-size: 16px;
+    font-weight: 400;
+    color: black;
+    text-decoration: none;
+  }
+  
+  .anav-elements ul a.active {
+    color: black;
+    font-weight: 500;
+    position: relative;
+  }
+  @media (max-width: 600px){
+    .anav-elements ul a{
+        font-size: medium;
+    }
+  }

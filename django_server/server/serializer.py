@@ -4,7 +4,16 @@ class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model= Images
         fields=['file_path']
-class ShoeSerializer(serializers.ModelSerializer):
+class SizeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Shoe
-        fields = '__all__'
+        model= Size
+        fields = ['size', 'stock']
+class ItemSerializer(serializers.ModelSerializer):
+    size = SizeSerializer(many=True)
+    class Meta:
+        model = ItemType
+        fields= '__all__'
+class BlogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Blog
+        fields= '__all__'

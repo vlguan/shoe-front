@@ -1,10 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect, Fragment } from "react";
+import { Link, NavLink } from 'react-router-dom';
 import logoImage from "../../assets/logo.png";
 import {ReactComponent as Hamburger} from '../../assets/hamburger.svg'
 import './nav.css';
-
-const Navbar: React.FC = () => {
+import { connect } from 'react-redux';
+import { logout } from '../../actions/auth.ts'
+const Navbar: React.FC = ({ isAuthenticated, logout }) => {
+  const authLinks: JSX.Element = (
+    <Fragment>
+            <li className='nav-item'>
+                <NavLink className='nav-link' to='/admin/item-upload'>Admin</NavLink>
+            </li>
+            <li className='nav-item'>
+                <a className='nav-link' onClick={logout} href='#!'>Logout</a>
+            </li>
+    </Fragment>
+  );
+  const guestLinks: JSX.Element = (
+    <Fragment>
+            <li className='nav-item'>
+                <NavLink className='nav-link' to='/login'>Login</NavLink>
+            </li>
+            <li className='nav-item'>
+                <NavLink className='nav-link' to='/register'>Register</NavLink>
+            </li>
+        </Fragment>
+  );
   const [showNav, setShowNav] = useState(false)
   const toggleNavItems = () => {
     setShowNav(!showNav)
@@ -47,27 +68,12 @@ const Navbar: React.FC = () => {
               </li>
               <li>
               <NavLink
-                  to='/instagram'
-                  
-                >
-                  Instagram
-                </NavLink>
-              </li>
-              <li>
-              <NavLink
-                  to='/admin'
-                  
-                >
-                  Admin
-                </NavLink>
-              </li>
-              <li>
-              <NavLink
                   to='/contact'
                   >
                   Contact
                 </NavLink>
               </li>
+              { isAuthenticated ? authLinks : guestLinks}
             </ul>
           </div>
         </div>
@@ -75,4 +81,7 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+})
+export default connect(mapStateToProps, { logout })(Navbar);
