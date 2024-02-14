@@ -13,7 +13,7 @@ interface Post {
   image: string;
 }
 
-const BlogDisplay: React.FC = ({ isAuthenticated }) => {
+const BlogDisplay: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -48,6 +48,7 @@ const BlogDisplay: React.FC = ({ isAuthenticated }) => {
   // Increment page after the initial fetch.
     if (page < 1) {
     fetchPosts(); // Always fetch posts when the component mounts or when page changes.
+    setPage((prevPage) => prevPage + 1);
     }
   }, [page, loading]);
 
