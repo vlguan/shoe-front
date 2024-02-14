@@ -17,7 +17,8 @@ import Layout from './hocs/Layout.js';
 import store from './store.ts';
 import BlogUpload from './components/blogUp/upblog.tsx';
 import EditBlog from './components/blogedit/blogedit.tsx';
-import ItemList from './components/editComp/itemedit.tsx'
+import ItemList from './components/editComp/itemedit.tsx';
+import HowTo from './containers/HowTo.tsx';
 const App: React.FC = () => {
   return (
   <>
@@ -39,7 +40,7 @@ const App: React.FC = () => {
                 <Route path='item-edit' element={<ItemList/>}/>
               </Route>
               <Route path='/register' element={<Register/>} />
-              {/* <Route path='/marketing' component={Marketing} /> */}
+              <Route path='/howto' element={<HowTo/>} />
               {/* <Route path='/consulting' component={Consulting} /> */}
             </Routes>
           </Layout>
