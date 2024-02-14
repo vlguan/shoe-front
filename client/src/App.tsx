@@ -36,7 +36,6 @@ const App: React.FC = () => {
               <Route path="/edit-blog/:postId" element={<EditBlog />} />
               <Route path='/admin' element={<Admin/>}>
                 <Route path='item-upload' element={<ItemUpload/>}/>
-                <Route path='blog-upload' element={<BlogUpload/>}/>
                 <Route path='item-edit' element={<ItemList/>}/>
               </Route>
               <Route path='/register' element={<Register/>} />

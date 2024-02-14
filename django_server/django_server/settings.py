@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'server',
     'accounts',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [

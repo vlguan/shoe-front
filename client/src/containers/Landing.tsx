@@ -11,7 +11,7 @@ const LandingPage: React.FC = () => {
     const fetchData = async()=>{
       const imagePaths = await fetchImage();
       setImages(imagePaths);
-      const productData = await fetchProduct();
+      const productData = await fetchProduct(0,5);
       // console.log(productData)
       setProducts(productData);
     }

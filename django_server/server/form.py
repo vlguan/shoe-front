@@ -17,3 +17,7 @@ class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields = '__all__'
+class HowToForm(forms.ModelForm):
+    class Meta:
+        model = HowTo
+        fields = '__all__'

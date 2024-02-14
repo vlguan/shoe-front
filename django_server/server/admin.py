@@ -1,3 +1,26 @@
 from django.contrib import admin
+from .models import ItemType, HowTo, Blog
 
-# Register your models here.
+
+class SizeInline(admin.TabularInline):
+    model = ItemType.size.through
+    extra = 1
+class ShoeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'display_size')
+    search_fields = ['model']  # Add search functionality
+    inlines = [SizeInline]
+    def display_size(self,obj):
+        return ', '.join([size.size for size in obj.size.all()])
+class HowToAdmin(admin.ModelAdmin):
+    model=HowTo
+    list_display = ('id','content')
+    search_fields= ['content']
+class BlogAdmin(admin.ModelAdmin):
+    model = Blog
+    list_display =('title', 'author')
+    def display_image(self,obj):
+        return obj.image.url if obj.image else ''
+admin.site.register(ItemType, ShoeAdmin)
+admin.site.register(HowTo, HowToAdmin)
+admin.site.register(Blog, BlogAdmin)
+# admin.site.register(ItemType,ShoeAdmin.display_size)

@@ -10,81 +10,75 @@ interface Post {
   content: string;
   author: string;
   updated_on: string;
+  image: string;
 }
 
-const InfiniteScrollBlog: React.FC = ({ isAuthenticated }) => {
+const BlogDisplay: React.FC = ({ isAuthenticated }) => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [hasMorePosts, setHasMorePosts] = useState(true);
   const[postsPerPage] =useState(10);
-  let navigate = useNavigate();
+
+  const fetchPosts = async () => {
+    if (!hasMorePosts || loading) {
+      return;
+    }
+    setLoading(true);
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/blog/`, {
+        withCredentials: true,
+        params:{
+          start:page*postsPerPage,
+          end:(page+1)*postsPerPage
+        }
+        
+      });
+
+      const newPosts: Post[] = await response.data;
+      setPosts((prevPosts)=>[...prevPosts,...newPosts]);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      if (!hasMorePosts || loading) {
-        return;
-      }
-      setLoading(true);
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/blog/`, {
-          withCredentials: true,
-          params: {
-            start: (page-1)*postsPerPage,
-            end: page*postsPerPage
-          },
-        });
-
-        const newPosts: Post[] = await response.data;
-        if (newPosts.length === 0) {
-          setHasMorePosts(false);
-        } else {
-          setPosts((prevPosts) => [...prevPosts, ...newPosts]);
-          setPage((prevPage) => prevPage + 1);
-        }
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, [page, hasMorePosts, loading]);
+  // Increment page after the initial fetch.
+    if (page < 1) {
+    fetchPosts(); // Always fetch posts when the component mounts or when page changes.
+    }
+  }, [page, loading]);
 
   const formatDate = (dateString: string) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('en-US', options);
   };
 
-  const handleEdit = (postId: number) => {
-    navigate(`/edit-blog/${postId}`);
-  };
-
   const handleNextPage = () => {
     setPage((prevPage) => prevPage + 1);
+    fetchPosts()
   };
 
   return (
     <div className={styles.blogContainer}>
-      <h1>Infinite Scroll Blog</h1>
+      <h1>Little Feet Blog</h1>
       <div>
         {posts.map((post) => (
           <div key={post.id} className={styles.post}>
             <h2 className={styles.postTitle}>{post.title}</h2>
+            <h3 className={styles.postDate}>by {post.author}</h3>
             <h3 className={styles.postDate}>{formatDate(post.updated_on)}</h3>
-            <p className={styles.postDesc}>{post.content}</p>
-
-            {isAuthenticated && (
-              <button onClick={() => handleEdit(post.id)}>Edit</button>
-            )}
+            {post.image && <img src={post.image} alt={`Image for ${post.title}`} />}
+            <div className={styles.postDesc} dangerouslySetInnerHTML={{__html: `${post.content}`}}></div>
           </div>
         ))}
       </div>
       {loading && <p>Loading...</p>}
       {hasMorePosts && (
-        <button onClick={handleNextPage} disabled={loading}>
-          Next Page
+        <button onClick={handleNextPage} >
+          More Posts
         </button>
       )}
     </div>
@@ -95,4 +89,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(InfiniteScrollBlog);
+export default connect(mapStateToProps)(BlogDisplay);

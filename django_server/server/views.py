@@ -21,7 +21,7 @@ class blog_view(APIView):
             title = request.data.get('title')
             content=request.data.get('content')
             status=request.data.get('status', 0)
-            print('this should be test ', self.request.user.username)
+            image_files=request.data.get('images')
             Blog.objects.create(
                 title=title,
                 slug = title,
@@ -190,4 +190,32 @@ class get_all_view(APIView):
             return Response(serializers.data)
         except Exception as e:
             print(e)
-            return Response({'error' : 'Error: {e}'})
+            return Response({'error' : f'Error: {e}'})
+class how_to_view(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request, format=None):
+        howto_instance = HowTo.objects.first()
+
+        try:
+            if howto_instance:
+                # If HowTo instance exists, update it
+                form = HowToForm(request.data, instance=howto_instance)
+            else:
+                # If HowTo instance doesn't exist, create a new one
+                form = HowToForm(request.data)
+
+            if form.is_valid():
+                form.save()
+                return Response({'message': 'success'})
+            else:
+                return Response({'error': form.errors})
+        except Exception as e:
+            return Response({'error': f'Exception {e}'})
+    permission_classes = (permissions.AllowAny,)
+    def get(self, format=None):
+        try:
+            HowToData= HowTo.objects.first()
+            return Response(HowToData.content)
+        except Exception as e:
+            return Response({'error': f'Exception {e}'})

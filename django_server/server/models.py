@@ -8,12 +8,12 @@ STATUS = (
 )
 class Blog(models.Model):
     title = models.CharField(max_length=200, unique=True)
-    slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts', default='admin')
     updated_on = models.DateTimeField(auto_now= True)
     content = RichTextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
+    image = models.ImageField(upload_to='blog/')
 
     class Meta:
         ordering=['-created_on']
@@ -28,7 +28,8 @@ class Images(models.Model):
 class Size(models.Model):
     size = models.CharField(max_length=50)
     stock = models.PositiveIntegerField(default=0)
-
+    def __str__(self):
+        return self.size
 class ItemType(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=80, null=False)
@@ -37,3 +38,5 @@ class ItemType(models.Model):
     price=models.CharField(max_length=80,null=False)
     model=models.CharField(max_length=80, null=False)
     size = models.ManyToManyField(Size, blank=True)
+class HowTo(models.Model):
+    content = RichTextField()
