@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-db^q7x6-j=fy+5ljgl_&ghrr#*d^z6^u(xyd0*@ryj5r#oa28d'
+SECRET_KEY = 'SECRET_KEY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -92,7 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'shoes',
         'USER': 'admin',
-        'PASSWORD': 'password',
+        'PASSWORD': 'DB_PASSWORD',
         'HOST': 'little-feet-1.c76ucow82zf3.us-west-1.rds.amazonaws.com',
         'PORT': '3310',
     }
@@ -155,11 +155,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Storage
 # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
-# access_key: AKIA5FTZABC73ODAZDNZ
+# 
 # secret_access_key: 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
 
-AWS_ACCESS_KEY_ID = 'AKIA5FTZABC73ODAZDNZ'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = 'ACCESS_KEY'
+AWS_SECRET_ACCESS_KEY = 'SECRET'
 AWS_STORAGE_BUCKET_NAME = 'little-feet'
 AWS_S3_SIGNATURE_NAME = 's3v4',
 AWS_S3_REGION_NAME = 'us-west-1'
