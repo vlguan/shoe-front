@@ -20,12 +20,12 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
       image: imageFiles,
     }
   })
-  const sliderSettings = {
+  var sliderSettings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+    slidesToShow: 5,
+    slidesToScroll: 5,
     autoplay: true,
     autoplaySpeed: 30000,
     responsive: [
@@ -33,25 +33,29 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
           breakpoint: 480,
           settings: {
             slidesToShow: 1,
+            slidesToScroll:1
           },
         },
         {
           breakpoint: 768,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 3,
+            slidesToScroll:3
           },
         },
         {
-          breakpoint: 1200,
+          breakpoint: 1024,
           settings: {
-            slidesToShow: 3,
+            slidesToShow: 5,
+            slidesToScroll:5
           },
         },
       ],
   };
 
   return (
-    <Slider {...sliderSettings} className="product-slider">
+    <div className="product-slider">
+      <Slider {...sliderSettings} >
       {formattedProducts.map((product, index) => (
         <div key={index} className="slide">
           <img src={product.image} alt={product.name} />
@@ -62,6 +66,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
         </div>
       ))}
     </Slider>
+    </div>
   );
 };
 

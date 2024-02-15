@@ -4,7 +4,7 @@ const BASE_URL = 'https://little-feet.s3.us-west-1.amazonaws.com/product/'
 
 export const fetchImage = async()=> {
     try{
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/image/?start=59&end=63`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/image/?start=0&end=10`, {
         method:'GET',
       });
       // console.log(response)

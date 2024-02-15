@@ -18,6 +18,8 @@
   .product-slider img{
     height: 100px;
     object-fit: cover;
+    height:auto;
+    max-height: 100px;
     margin: 0 auto;
   }
   .product-info {

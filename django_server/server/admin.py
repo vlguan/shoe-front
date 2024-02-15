@@ -1,16 +1,21 @@
+from django import forms
 from django.contrib import admin
-from .models import ItemType, HowTo, Blog
+
+from .models import ItemType, HowTo, Blog,WhoAreWe, Size
 
 
 class SizeInline(admin.TabularInline):
     model = ItemType.size.through
     extra = 1
+    fields = ['size']
 class ShoeAdmin(admin.ModelAdmin):
+    ordering = ('id',)
     list_display = ('id', 'name', 'display_size')
     search_fields = ['model']  # Add search functionality
     inlines = [SizeInline]
     def display_size(self,obj):
-        return ', '.join([size.size for size in obj.size.all()])
+        return ', '.join([f"{size.size} (Stock: {size.stock})" for size in obj.size.all()])
+
 class HowToAdmin(admin.ModelAdmin):
     model=HowTo
     list_display = ('id','content')
@@ -20,7 +25,13 @@ class BlogAdmin(admin.ModelAdmin):
     list_display =('title', 'author')
     def display_image(self,obj):
         return obj.image.url if obj.image else ''
+class WhoAreWeAdmin(admin.ModelAdmin):
+    model=WhoAreWe
+    list_display = ('id','content')
+    search_fields= ['content']
 admin.site.register(ItemType, ShoeAdmin)
 admin.site.register(HowTo, HowToAdmin)
 admin.site.register(Blog, BlogAdmin)
-# admin.site.register(ItemType,ShoeAdmin.display_size)
+admin.site.register(WhoAreWe,WhoAreWeAdmin)
+admin.site.register(Size)
+# # admin.site.register(ItemType,ShoeAdmin.display_size)

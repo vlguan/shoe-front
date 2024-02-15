@@ -83,6 +83,17 @@ class blog_view(APIView):
         except Exception as e:
             print(e)
             return Response({'error': e}, status=400)
+class featured_view(APIView):
+    permission_classes=(permissions.AllowAny,)
+    def get(self, request):
+        try:
+            id = int(request.query_params.get('item', 1))
+            print('my id',id)
+            items = ItemType.objects.get(id=id)
+            serializers = ItemSerializer(items)
+            return Response(serializers.data)
+        except ValueError:
+            return Response({'error':'Invalid ID values'}, status=400)
 class item_view(APIView):
     permission_classes=(permissions.AllowAny,)
     def get(self,request):
@@ -181,6 +192,17 @@ class gallery_view(APIView):
             return Response(serializers.data)
         except ValueError:
             return Response({'error':'Invalid ID values'}, status=400)
+class featured_view(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self, request, format=None):
+        try:
+            # Filter items where 'featured' is true
+            shoes = ItemType.objects.filter(featured=True)
+            serializers = ItemSerializer(shoes, many=True)
+            return Response(serializers.data)
+        except ValueError:
+            return Response({'error': 'Invalid ID values'}, status=400)
 class get_all_view(APIView):
     permission_classes=(permissions.AllowAny,)
     def get(self, request, format=None):
@@ -193,29 +215,17 @@ class get_all_view(APIView):
             return Response({'error' : f'Error: {e}'})
 class how_to_view(APIView):
     permission_classes = (permissions.AllowAny,)
-
-    def post(self, request, format=None):
-        howto_instance = HowTo.objects.first()
-
-        try:
-            if howto_instance:
-                # If HowTo instance exists, update it
-                form = HowToForm(request.data, instance=howto_instance)
-            else:
-                # If HowTo instance doesn't exist, create a new one
-                form = HowToForm(request.data)
-
-            if form.is_valid():
-                form.save()
-                return Response({'message': 'success'})
-            else:
-                return Response({'error': form.errors})
-        except Exception as e:
-            return Response({'error': f'Exception {e}'})
-    permission_classes = (permissions.AllowAny,)
     def get(self, format=None):
         try:
             HowToData= HowTo.objects.first()
+            return Response(HowToData.content)
+        except Exception as e:
+            return Response({'error': f'Exception {e}'})
+class who_view(APIView):
+    permission_classes = (permissions.AllowAny,)
+    def get(self, format=None):
+        try:
+            HowToData= WhoAreWe.objects.first()
             return Response(HowToData.content)
         except Exception as e:
             return Response({'error': f'Exception {e}'})
