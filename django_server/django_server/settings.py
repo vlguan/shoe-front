@@ -54,15 +54,19 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://littlefeetfrontend.s3-website-us-west-1.amazonaws.com']
 CSRF_COOKIE_PATH = '/'
 CSRF_COOKIE_SAMESITE = 'Lax'  
 CSRF_COOKIE_HTTPONLY = False
-CSRF_USE_SESSIONS = False
+CSRF_USE_SESSIONS = True
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOWED_ORIGINS=[
-    "http://localhost:3000",
-]
+# CORS_ALLOWED_ORIGINS=[
+#     "http://localhost:3000",
+#     'http://littlefeetfrontend.s3-website-us-west-1.amazonaws.com'
+# ]
 CORS_ALLOW_CREDENTIALS=True
 ROOT_URLCONF = 'django_server.urls'
 
