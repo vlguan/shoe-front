@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-db^q7x6-j=fy+5ljgl_&ghrr#*d^z6^u(xyd0*@ryj5r#oa28d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
 
 # Application definition
@@ -57,7 +57,7 @@ MIDDLEWARE = [
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://littlefeetfrontend.s3-website-us-west-1.amazonaws.com']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', '0.0.0.0']
 CSRF_COOKIE_PATH = '/'
 CSRF_COOKIE_SAMESITE = 'Lax'  
 CSRF_COOKIE_HTTPONLY = False
