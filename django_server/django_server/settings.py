@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-db^q7x6-j=fy+5ljgl_&ghrr#*d^z6^u(xyd0*@ryj5r#oa28d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['0.0.0.0', ".awsapprunner.com"]
 
 
 # Application definition
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,6 +58,7 @@ MIDDLEWARE = [
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://littlefeetfrontend.s3-website-us-west-1.amazonaws.com/']
 CSRF_COOKIE_PATH = '/'
 CSRF_COOKIE_SAMESITE = 'Lax'  
@@ -142,7 +144,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'client/assets')
 ]
-STATIC_ROOT =os.path.join(BASE_DIR,'client')
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
