@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-db^q7x6-j=fy+5ljgl_&ghrr#*d^z6^u(xyd0*@ryj5r#oa28d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['0.0.0.0', ".awsapprunner.com"]
+# ALLOWED_HOSTS = ['0.0.0.0', ".awsapprunner.com",]
 
 
 # Application definition
@@ -55,28 +55,28 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_COOKIE_DOMAIN = ['.s3-website-us-west-1.amazonaws.com']
-CSRF_TRUSTED_ORIGINS = ['http://littlefeetfrontend.s3-website-us-west-1.amazonaws.com']
-CSRF_COOKIE_PATH = '/'
-CSRF_COOKIE_SAMESITE = 'None'  
-CSRF_COOKIE_HTTPONLY = False
-CSRF_USE_SESSIONS = True
-CORS_ORIGIN_ALLOW_ALL = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# CSRF_COOKIE_DOMAIN = ['.s3-website-us-west-1.amazonaws.com']
+# CSRF_TRUSTED_ORIGINS = ['http://littlefeetfrontend.s3-website-us-west-1.amazonaws.com']
+# CSRF_COOKIE_PATH = '/'
+# CSRF_COOKIE_SAMESITE = 'None'  
+# CSRF_COOKIE_HTTPONLY = True
+# CSRF_USE_SESSIONS = True
+# CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ALLOWED_ORIGINS=[
 #     "http://localhost:3000",
 #     'http://littlefeetfrontend.s3-website-us-west-1.amazonaws.com'
 # ]
-CORS_ALLOW_CREDENTIALS=True
+# CORS_ALLOW_CREDENTIALS=True
 ROOT_URLCONF = 'django_server.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'client')],
+        'DIRS': [os.path.join(BASE_DIR,'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -141,11 +141,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'client/assets')
+    os.path.join(BASE_DIR, 'build/static')
 ]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
