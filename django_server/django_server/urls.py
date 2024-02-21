@@ -20,7 +20,7 @@ from django.shortcuts import render
 def render_react(request):
     return render(request, "index.html")
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin_dash/', admin.site.urls),
     path('api/', include('server.urls')),
     path('accounts/',include('accounts.urls')),
     re_path(r"^$", render_react),

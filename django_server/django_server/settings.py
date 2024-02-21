@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-db^q7x6-j=fy+5ljgl_&ghrr#*d^z6^u(xyd0*@ryj5r#oa28d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
 
 # ALLOWED_HOSTS = ['0.0.0.0', ".awsapprunner.com",]
 
