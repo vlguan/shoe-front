@@ -16,23 +16,6 @@ from .serializer import *
 # create blog view
  
 class blog_view(APIView):
-    def post(self, request, format=None):
-        try:
-            title = request.data.get('title')
-            content=request.data.get('content')
-            status=request.data.get('status', 0)
-            image_files=request.data.get('images')
-            Blog.objects.create(
-                title=title,
-                slug = title,
-                author=request.user,
-                content=content,
-                status=status
-            )
-            return Response({'success': 'Successfully created Blog post'})
-        except Exception as e:
-            print(e)
-            return Response({'error': e})
     @permission_classes([permissions.AllowAny])
     def get(self, request, format=None):
         id = request.query_params.get('id')
@@ -53,36 +36,6 @@ class blog_view(APIView):
             return Response({'error': 'Invalid Blog ID value'}, status=400)
         except Blog.DoesNotExist:
             return Response({'error': 'Blog not found'}, status=404)
-    permission_classes = (permissions.AllowAny, )
-    def put(self, request):
-        try:
-            id = request.query_params.get('id')
-            content = request.data.get('content')
-            # print('content',request.data, content)
-            if id is None or content is None:
-                return Response({'error': 'id and content are required'}, status=400)
-            
-            blog = Blog.objects.get(id=id)
-            setattr(blog, 'content', content)
-            blog.save()
-            return Response({'success': 'Item updated'})
-        except Exception as e:
-            print(e)
-            return Response({'error': e}, status=400)
-    permission_classes = (permissions.AllowAny, )
-    def delete(self, request):
-        try:
-            id = request.query_params.get('id')
-            # Try to get the blog by id
-            blog = Blog.objects.get(id=id)
-            
-            # Delete the blog
-            blog.delete()
-            
-            return Response({'success': 'Blog deleted'})
-        except Exception as e:
-            print(e)
-            return Response({'error': e}, status=400)
 class featured_view(APIView):
     permission_classes=(permissions.AllowAny,)
     def get(self, request):
@@ -125,36 +78,6 @@ class item_view(APIView):
         except Exception as e:
             print(e)
             return Response({'error': e}, status=400)
-    def post(self,request):
-        try:
-            form_data = request.POST.copy()
-            s = request.POST.get('size')
-            print(s)
-            try:
-                last_id = ItemType.objects.latest('id').id
-            except:
-                last_id = None
-            new_id = last_id + 1 if last_id else 1
-            if 'size' in form_data:
-                del form_data['size']
-            form_data['id'] = new_id
-            sizesList = json.loads(s)
-            form = ItemForm(form_data)
-
-            if form.is_valid():
-                item_type = form.save()
-                for sizes in sizesList:
-                    size, stock = sizes.split(':')
-                    size_inst = Size.objects.create(size=size, stock=stock)
-                    item_type.size.add(size_inst)
-                return Response({'message': 'success'})
-            else:
-                print('form invalid', form.errors)
-                form = ItemForm()
-                return Response({'message': 'failed'}, status=400)
-        except Exception as e:
-            print(e)
-            return Response({'error': e})
 class image_view(APIView):
     permission_classes=(permissions.AllowAny,)
 
@@ -168,19 +91,6 @@ class image_view(APIView):
             return Response(serializers.data)
         except ValueError:
             return Response({'error':'Invalid ID values'}, status=400)
-    def post(self,request):
-        try:
-            image_form = ImageForm(request.POST,request.FILES)
-            if image_form.is_valid():
-                image_form.save()
-                return Response({'message': 'success'})
-            else:
-                print('image_form invalid',image_form.errors)
-                image_form = ImageForm()
-            return Response({'message': 'failed'}, status=400)
-        except Exception as e:
-            print(e)
-            return Response({'error': e})
 class gallery_view(APIView):
     permission_classes=(permissions.AllowAny,)
     def get(self, request, format=None):
