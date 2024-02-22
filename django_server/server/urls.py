@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import blog_view,item_view,image_view,gallery_view, get_all_view, how_to_view, who_view, featured_view
+from .views import blog_view,item_view,image_view,gallery_view, get_all_view, how_to_view, who_view, featured_view, frontpage
 urlpatterns = [
     path('blog/', blog_view.as_view(), name='blog'),
     path('image/', image_view.as_view(), name='image'),
@@ -9,6 +9,7 @@ urlpatterns = [
     path('how-to/',how_to_view.as_view(), name='howto'),
     path('who/',who_view.as_view(), name='whoto'),
     path('featured/',featured_view.as_view(), name='feature'),
+    path('frontpage/',frontpage.as_view(),name='frontpage'),
     path('accounts/', include('accounts.urls')),
     path('api-auth/', include('rest_framework.urls'))
 ]

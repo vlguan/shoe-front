@@ -1,10 +1,6 @@
-import json
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
-from django.utils.decorators import method_decorator
-from django.http import HttpResponse
+import boto3
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import permission_classes
 from rest_framework.response import Response
 from rest_framework import permissions
 
@@ -139,3 +135,18 @@ class who_view(APIView):
             return Response(HowToData.content)
         except Exception as e:
             return Response({'error': f'Exception {e}'})
+class frontpage(APIView):
+    permission_classes=(permissions.AllowAny,)
+    def get(self, format=None):
+        try:
+            bucket_name='little-feet'
+            folder_name='frontpage'
+            num_images=10
+            s3 = boto3.client('s3')
+            objects = s3.list_objects_v2(Bucket=bucket_name,Prefix=f'{folder_name}/')
+            image_url=[]
+            for obj in objects.get('Contents',[])[1:num_images]:
+                image_url.append(obj["Key"])
+            return Response(image_url)
+        except Exception as e:
+            return Response({'error': f'Exception{e}'})
