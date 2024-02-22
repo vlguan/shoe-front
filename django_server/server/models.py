@@ -27,21 +27,13 @@ class Size(models.Model):
     def __str__(self):
         return str((self.size, self.stock))
 class ItemType(models.Model):
+    id = models.AutoField(primary_key=True, editable=False)
     name = models.CharField(max_length=80, null=False)
-    image_files = models.JSONField(models.CharField(max_length=600), null=False, editable=False)
     description=models.CharField(max_length=160, null=True)
     price=models.CharField(max_length=80,null=False)
     model=models.CharField(max_length=80, null=False)
     size = models.ManyToManyField(Size,  related_name='item_types', blank=True)
     featured = models.BooleanField(default=False)
-
-    def update_image_files(self):
-        # Retrieve file paths from related Images and update the image_files field
-        self.image_files = list(self.images.values_list('file_path', flat=True))
-    def save(self, *args, **kwargs):
-        # Call the update_image_files method before saving
-        self.update_image_files()
-        super().save(*args, **kwargs)
     def __str__(self):
         return self.name
 class Images(models.Model):
@@ -54,7 +46,8 @@ class Images(models.Model):
     def save(self, *args, **kwargs):
         # Set file_path based on the uploaded file name
         self.file_path = f"{self.image.name}"
-
+        self.item_type.save()
+        
         super().save(*args, **kwargs)
     def __str__(self):
         return self.image.name

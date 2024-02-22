@@ -40,6 +40,10 @@ class featured_view(APIView):
             print('my id',id)
             items = ItemType.objects.get(id=id)
             serializers = ItemSerializer(items)
+            for data, item in zip(serializers.data, items):
+                images = item.images.all()
+                images_serializer = ImageSerializer(images, many=True)
+                data['images'] = images_serializer.data
             return Response(serializers.data)
         except ValueError:
             return Response({'error':'Invalid ID values'}, status=400)
@@ -95,6 +99,10 @@ class gallery_view(APIView):
             end_id = int(request.query_params.get('end', 51))
             shoes = ItemType.objects.filter(id__in=range(start_id, end_id))
             serializers = ItemSerializer(shoes, many=True)
+            for data, item in zip(serializers.data, shoes):
+                images = item.images.all()
+                images_serializer = ImageSerializer(images, many=True)
+                data['images'] = images_serializer.data
             return Response(serializers.data)
         except ValueError:
             return Response({'error':'Invalid ID values'}, status=400)
@@ -115,6 +123,10 @@ class get_all_view(APIView):
         try:
             shoes = ItemType.objects.all()
             serializers = ItemSerializer(shoes, many=True)
+            for data, item in zip(serializers.data, shoes):
+                images = item.images.all()
+                images_serializer = ImageSerializer(images, many=True)
+                data['images'] = images_serializer.data
             return Response(serializers.data)
         except Exception as e:
             print(e)
