@@ -21,17 +21,12 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
     
-class Images(models.Model):
-    file_path = models.CharField(max_length=160)
-    image = models.ImageField(upload_to='product/')
-
 class Size(models.Model):
     size = models.CharField(max_length=50)
     stock = models.PositiveIntegerField(default=0)
     def __str__(self):
         return str((self.size, self.stock))
 class ItemType(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=80, null=False)
     image_files = models.JSONField(models.CharField(max_length=600), null=False)
     description=models.CharField(max_length=160, null=True)
@@ -39,6 +34,20 @@ class ItemType(models.Model):
     model=models.CharField(max_length=80, null=False)
     size = models.ManyToManyField(Size,  related_name='item_types', blank=True)
     featured = models.BooleanField(default=False)
+class Images(models.Model):
+    def generate_file_path(instance, filename):
+        return f"{filename}"
+    file_path = models.CharField(max_length=160, editable=False, default='')
+    image = models.ImageField(upload_to='product/')
+    item_type = models.ForeignKey(ItemType, on_delete=models.CASCADE, related_name='images', null=True)
+
+    def save(self, *args, **kwargs):
+        # Set file_path based on the uploaded file name
+        self.file_path = f"{self.image.name}"
+
+        super().save(*args, **kwargs)
+    def __str__(self):
+        return self.image.name
 class HowTo(models.Model):
     content = RichTextField()
 class WhoAreWe(models.Model):
