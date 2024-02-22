@@ -13,7 +13,7 @@ class ImageInline(admin.TabularInline):
     extra = 1
 class ShoeAdmin(admin.ModelAdmin):
     ordering = ('id',)
-    list_display = ('id', 'name', 'display_size')
+    list_display = ('name', 'display_size')
     search_fields = ['model']  # Add search functionality
     inlines = [SizeInline, ImageInline]
     def display_size(self,obj):
