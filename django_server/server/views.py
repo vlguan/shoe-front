@@ -42,8 +42,8 @@ class featured_view(APIView):
             serializers = ItemSerializer(items)
             for data, item in zip(serializers.data, items):
                 images = item.images.all()
-                images_serializer = ImageSerializer(images, many=True)
-                data['images'] = images_serializer.data
+                image_filenames = [image.file_path for image in images]
+                data['image_files'] = ','.join(image_filenames)
             return Response(serializers.data)
         except ValueError:
             return Response({'error':'Invalid ID values'}, status=400)
@@ -52,10 +52,15 @@ class item_view(APIView):
     def get(self,request):
         try:
             id = int(request.query_params.get('item', 1))
-            print('my id',id)
             items = ItemType.objects.get(id=id)
             serializers = ItemSerializer(items)
-            return Response(serializers.data)
+            # Retrieve all images for the specified item
+            images = items.images.all()
+            image_filenames = [image.file_path for image in images]
+            # Add image_files to the response data
+            data = serializers.data
+            data['image_files'] = ','.join(image_filenames)
+            return Response(data)
         except ValueError:
             return Response({'error':'Invalid ID values'}, status=400)
     def delete(self,request):
@@ -101,8 +106,8 @@ class gallery_view(APIView):
             serializers = ItemSerializer(shoes, many=True)
             for data, item in zip(serializers.data, shoes):
                 images = item.images.all()
-                images_serializer = ImageSerializer(images, many=True)
-                data['images'] = images_serializer.data
+                image_filenames = [image.file_path for image in images]
+                data['image_files'] = ','.join(image_filenames)
             return Response(serializers.data)
         except ValueError:
             return Response({'error':'Invalid ID values'}, status=400)
@@ -114,6 +119,10 @@ class featured_view(APIView):
             # Filter items where 'featured' is true
             shoes = ItemType.objects.filter(featured=True)
             serializers = ItemSerializer(shoes, many=True)
+            for data, item in zip(serializers.data, shoes):
+                images = item.images.all()
+                image_filenames = [image.file_path for image in images]
+                data['image_files'] = ','.join(image_filenames)
             return Response(serializers.data)
         except ValueError:
             return Response({'error': 'Invalid ID values'}, status=400)
@@ -125,8 +134,8 @@ class get_all_view(APIView):
             serializers = ItemSerializer(shoes, many=True)
             for data, item in zip(serializers.data, shoes):
                 images = item.images.all()
-                images_serializer = ImageSerializer(images, many=True)
-                data['images'] = images_serializer.data
+                image_filenames = [image.file_path for image in images]
+                data['image_files'] = ','.join(image_filenames)
             return Response(serializers.data)
         except Exception as e:
             print(e)

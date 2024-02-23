@@ -32,6 +32,7 @@ class ItemType(models.Model):
     description=models.CharField(max_length=160, null=True)
     price=models.CharField(max_length=80,null=False)
     model=models.CharField(max_length=80, null=False)
+    link = models.CharField(max_length=160, null=False)
     size = models.ManyToManyField(Size,  related_name='item_types', blank=True)
     featured = models.BooleanField(default=False)
     def __str__(self):
