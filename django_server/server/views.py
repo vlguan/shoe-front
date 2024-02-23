@@ -142,7 +142,7 @@ class get_all_view(APIView):
             return Response({'error' : f'Error: {e}'})
 class how_to_view(APIView):
     permission_classes = (permissions.AllowAny,)
-    def get(self, format=None):
+    def get(self, request,format=None):
         try:
             HowToData= HowTo.objects.first()
             return Response(HowToData.content)
@@ -150,7 +150,7 @@ class how_to_view(APIView):
             return Response({'error': f'Exception {e}'})
 class who_view(APIView):
     permission_classes = (permissions.AllowAny,)
-    def get(self, format=None):
+    def get(self, request, format=None):
         try:
             HowToData= WhoAreWe.objects.first()
             return Response(HowToData.content)
@@ -158,7 +158,7 @@ class who_view(APIView):
             return Response({'error': f'Exception {e}'})
 class frontpage(APIView):
     permission_classes=(permissions.AllowAny,)
-    def get(self, format=None):
+    def get(self, request,format=None):
         try:
             bucket_name='little-feet'
             folder_name='frontpage'
